@@ -1,0 +1,206 @@
+fileFormatVersion: 2
+guid: 2a897abdbcc93d94a933f1484c2df3ec
+timeCreated: 1477187868
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: directionalLight1
+    100002: msh_backCousin02
+    100004: msh_bottomCousin02
+    100006: msh_chair02
+    100008: msh_CottageTableSet01_bottom05
+    100010: msh_CottageTableSet01_msh_chairBack
+    100012: msh_CottageTableSet01_msh_chairBackSupport02
+    100014: msh_CottageTableSet01_msh_chairBackSupport03
+    100016: msh_CottageTableSet01_msh_chairBackSupport04
+    100018: msh_CottageTableSet01_msh_ChairLeg03
+    100020: msh_CottageTableSet01_msh_ChairLeg05
+    100022: msh_CottageTableSet01_msh_ChairLeg06
+    100024: msh_CottageTableSet01_msh_ChairLeg07
+    100026: msh_CottageTableSet01_msh_ChairSupport01
+    100028: msh_CottageTableSet01_msh_ChairSupport04
+    100030: msh_CottageTableSet01_msh_ChairSupport05
+    100032: msh_CottageTableSet01_msh_ChairSupport06
+    100034: msh_CottageTableSet01_msh_chairTop01
+    100036: msh_l_armRest02
+    100038: msh_l_armRest03
+    100040: msh_lf_leg02
+    100042: msh_lf_leg03
+    100044: msh_lf_leg04
+    100046: msh_lf_leg05
+    100048: pCube1
+    100050: polySurface224
+    100052: polySurface225
+    100054: //RootNode
+    400000: directionalLight1
+    400002: msh_backCousin02
+    400004: msh_bottomCousin02
+    400006: msh_chair02
+    400008: msh_CottageTableSet01_bottom05
+    400010: msh_CottageTableSet01_msh_chairBack
+    400012: msh_CottageTableSet01_msh_chairBackSupport02
+    400014: msh_CottageTableSet01_msh_chairBackSupport03
+    400016: msh_CottageTableSet01_msh_chairBackSupport04
+    400018: msh_CottageTableSet01_msh_ChairLeg03
+    400020: msh_CottageTableSet01_msh_ChairLeg05
+    400022: msh_CottageTableSet01_msh_ChairLeg06
+    400024: msh_CottageTableSet01_msh_ChairLeg07
+    400026: msh_CottageTableSet01_msh_ChairSupport01
+    400028: msh_CottageTableSet01_msh_ChairSupport04
+    400030: msh_CottageTableSet01_msh_ChairSupport05
+    400032: msh_CottageTableSet01_msh_ChairSupport06
+    400034: msh_CottageTableSet01_msh_chairTop01
+    400036: msh_l_armRest02
+    400038: msh_l_armRest03
+    400040: msh_lf_leg02
+    400042: msh_lf_leg03
+    400044: msh_lf_leg04
+    400046: msh_lf_leg05
+    400048: pCube1
+    400050: polySurface224
+    400052: polySurface225
+    400054: //RootNode
+    2300000: msh_backCousin02
+    2300002: msh_bottomCousin02
+    2300004: msh_chair02
+    2300006: msh_CottageTableSet01_bottom05
+    2300008: msh_CottageTableSet01_msh_chairBack
+    2300010: msh_CottageTableSet01_msh_chairBackSupport02
+    2300012: msh_CottageTableSet01_msh_chairBackSupport03
+    2300014: msh_CottageTableSet01_msh_chairBackSupport04
+    2300016: msh_CottageTableSet01_msh_ChairLeg03
+    2300018: msh_CottageTableSet01_msh_ChairLeg05
+    2300020: msh_CottageTableSet01_msh_ChairLeg06
+    2300022: msh_CottageTableSet01_msh_ChairLeg07
+    2300024: msh_CottageTableSet01_msh_ChairSupport01
+    2300026: msh_CottageTableSet01_msh_ChairSupport04
+    2300028: msh_CottageTableSet01_msh_ChairSupport05
+    2300030: msh_CottageTableSet01_msh_ChairSupport06
+    2300032: msh_CottageTableSet01_msh_chairTop01
+    2300034: msh_l_armRest02
+    2300036: msh_l_armRest03
+    2300038: msh_lf_leg02
+    2300040: msh_lf_leg03
+    2300042: msh_lf_leg04
+    2300044: msh_lf_leg05
+    2300046: pCube1
+    2300048: polySurface224
+    2300050: polySurface225
+    3300000: msh_backCousin02
+    3300002: msh_bottomCousin02
+    3300004: msh_chair02
+    3300006: msh_CottageTableSet01_bottom05
+    3300008: msh_CottageTableSet01_msh_chairBack
+    3300010: msh_CottageTableSet01_msh_chairBackSupport02
+    3300012: msh_CottageTableSet01_msh_chairBackSupport03
+    3300014: msh_CottageTableSet01_msh_chairBackSupport04
+    3300016: msh_CottageTableSet01_msh_ChairLeg03
+    3300018: msh_CottageTableSet01_msh_ChairLeg05
+    3300020: msh_CottageTableSet01_msh_ChairLeg06
+    3300022: msh_CottageTableSet01_msh_ChairLeg07
+    3300024: msh_CottageTableSet01_msh_ChairSupport01
+    3300026: msh_CottageTableSet01_msh_ChairSupport04
+    3300028: msh_CottageTableSet01_msh_ChairSupport05
+    3300030: msh_CottageTableSet01_msh_ChairSupport06
+    3300032: msh_CottageTableSet01_msh_chairTop01
+    3300034: msh_l_armRest02
+    3300036: msh_l_armRest03
+    3300038: msh_lf_leg02
+    3300040: msh_lf_leg03
+    3300042: msh_lf_leg04
+    3300044: msh_lf_leg05
+    3300046: pCube1
+    3300048: polySurface224
+    3300050: polySurface225
+    4300000: msh_CottageTableSet01_bottom05
+    4300002: msh_CottageTableSet01_msh_chairTop01
+    4300004: msh_CottageTableSet01_msh_chairBackSupport02
+    4300006: msh_CottageTableSet01_msh_chairBack
+    4300008: msh_CottageTableSet01_msh_ChairSupport04
+    4300010: msh_CottageTableSet01_msh_ChairLeg03
+    4300012: msh_CottageTableSet01_msh_ChairSupport01
+    4300014: msh_CottageTableSet01_msh_ChairLeg05
+    4300016: msh_CottageTableSet01_msh_ChairLeg06
+    4300018: msh_CottageTableSet01_msh_ChairLeg07
+    4300020: msh_CottageTableSet01_msh_ChairSupport05
+    4300022: msh_CottageTableSet01_msh_chairBackSupport03
+    4300024: msh_CottageTableSet01_msh_chairBackSupport04
+    4300026: msh_CottageTableSet01_msh_ChairSupport06
+    4300028: pCube1
+    4300030: msh_backCousin02
+    4300032: polySurface224
+    4300034: polySurface225
+    4300036: msh_l_armRest02
+    4300038: msh_l_armRest03
+    4300040: msh_bottomCousin02
+    4300042: msh_chair02
+    4300044: msh_lf_leg02
+    4300046: msh_lf_leg04
+    4300048: msh_lf_leg05
+    4300050: msh_lf_leg03
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

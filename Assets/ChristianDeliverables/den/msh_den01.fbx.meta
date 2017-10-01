@@ -1,0 +1,334 @@
+fileFormatVersion: 2
+guid: b5f7b2d2b071c154bac1770cbd474b8f
+timeCreated: 1477187880
+licenseType: Free
+ModelImporter:
+  serializedVersion: 18
+  fileIDToRecycleName:
+    100000: cam_view01
+    100002: grp_firePlace01
+    100004: grp_msh_chair01
+    100006: grp_msh_chair02
+    100008: grp_msh_couch03
+    100010: msh_backCousin01
+    100012: msh_backCousin01 1
+    100014: msh_backCousin01 2
+    100016: msh_bottomCousin01
+    100018: msh_bottomCousin01 1
+    100020: msh_bottomCousin01 2
+    100022: msh_ceilingLamp01
+    100024: msh_ceilingLamp02
+    100026: msh_chair01
+    100028: msh_chair01 1
+    100030: msh_chair01 2
+    100032: //RootNode
+    100034: msh_firePlace01
+    100036: msh_fpChimny01
+    100038: msh_fpCLock01
+    100040: msh_fpFireGate
+    100042: msh_fpMantilOrb01
+    100044: msh_fpMantilOrbStnad01
+    100046: msh_fpMantilPlate01
+    100048: msh_fpMantilPlateStand01
+    100050: msh_fpPictureFram01
+    100052: msh_l_armRest01
+    100054: msh_l_armRest01 1
+    100056: msh_l_armRest01 2
+    100058: msh_lb_leg01
+    100060: msh_lb_leg01 1
+    100062: msh_lb_leg01 2
+    100064: msh_lf_leg01
+    100066: msh_lf_leg01 1
+    100068: msh_lf_leg01 2
+    100070: msh_r_armRest01
+    100072: msh_r_armRest01 1
+    100074: msh_r_armRest01 2
+    100076: msh_rb_leg01
+    100078: msh_rb_leg01 1
+    100080: msh_rb_leg01 2
+    100082: msh_rf_leg01
+    100084: msh_rf_leg01 1
+    100086: msh_rf_leg01 2
+    100088: msh_room01
+    100090: msh_Shelf01
+    100092: msh_shelf01
+    100094: msh_Shelf02
+    100096: msh_table01
+    100098: msh_table02
+    100100: polySurface10
+    100102: polySurface10 1
+    100104: polySurface10 2
+    100106: polySurface5
+    100108: polySurface5 1
+    100110: polySurface5 2
+    400000: cam_view01
+    400002: grp_firePlace01
+    400004: grp_msh_chair01
+    400006: grp_msh_chair02
+    400008: grp_msh_couch03
+    400010: msh_backCousin01
+    400012: msh_backCousin01 1
+    400014: msh_backCousin01 2
+    400016: msh_bottomCousin01
+    400018: msh_bottomCousin01 1
+    400020: msh_bottomCousin01 2
+    400022: msh_ceilingLamp01
+    400024: msh_ceilingLamp02
+    400026: msh_chair01
+    400028: msh_chair01 1
+    400030: msh_chair01 2
+    400032: //RootNode
+    400034: msh_firePlace01
+    400036: msh_fpChimny01
+    400038: msh_fpCLock01
+    400040: msh_fpFireGate
+    400042: msh_fpMantilOrb01
+    400044: msh_fpMantilOrbStnad01
+    400046: msh_fpMantilPlate01
+    400048: msh_fpMantilPlateStand01
+    400050: msh_fpPictureFram01
+    400052: msh_l_armRest01
+    400054: msh_l_armRest01 1
+    400056: msh_l_armRest01 2
+    400058: msh_lb_leg01
+    400060: msh_lb_leg01 1
+    400062: msh_lb_leg01 2
+    400064: msh_lf_leg01
+    400066: msh_lf_leg01 1
+    400068: msh_lf_leg01 2
+    400070: msh_r_armRest01
+    400072: msh_r_armRest01 1
+    400074: msh_r_armRest01 2
+    400076: msh_rb_leg01
+    400078: msh_rb_leg01 1
+    400080: msh_rb_leg01 2
+    400082: msh_rf_leg01
+    400084: msh_rf_leg01 1
+    400086: msh_rf_leg01 2
+    400088: msh_room01
+    400090: msh_Shelf01
+    400092: msh_shelf01
+    400094: msh_Shelf02
+    400096: msh_table01
+    400098: msh_table02
+    400100: polySurface10
+    400102: polySurface10 1
+    400104: polySurface10 2
+    400106: polySurface5
+    400108: polySurface5 1
+    400110: polySurface5 2
+    2300000: msh_backCousin01
+    2300002: msh_backCousin01 1
+    2300004: msh_backCousin01 2
+    2300006: msh_bottomCousin01
+    2300008: msh_bottomCousin01 1
+    2300010: msh_bottomCousin01 2
+    2300012: msh_ceilingLamp01
+    2300014: msh_ceilingLamp02
+    2300016: msh_chair01
+    2300018: msh_chair01 1
+    2300020: msh_chair01 2
+    2300022: msh_firePlace01
+    2300024: msh_fpChimny01
+    2300026: msh_fpCLock01
+    2300028: msh_fpFireGate
+    2300030: msh_fpMantilOrb01
+    2300032: msh_fpMantilOrbStnad01
+    2300034: msh_fpMantilPlate01
+    2300036: msh_fpMantilPlateStand01
+    2300038: msh_fpPictureFram01
+    2300040: msh_l_armRest01
+    2300042: msh_l_armRest01 1
+    2300044: msh_l_armRest01 2
+    2300046: msh_lb_leg01
+    2300048: msh_lb_leg01 1
+    2300050: msh_lb_leg01 2
+    2300052: msh_lf_leg01
+    2300054: msh_lf_leg01 1
+    2300056: msh_lf_leg01 2
+    2300058: msh_r_armRest01
+    2300060: msh_r_armRest01 1
+    2300062: msh_r_armRest01 2
+    2300064: msh_rb_leg01
+    2300066: msh_rb_leg01 1
+    2300068: msh_rb_leg01 2
+    2300070: msh_rf_leg01
+    2300072: msh_rf_leg01 1
+    2300074: msh_rf_leg01 2
+    2300076: msh_room01
+    2300078: msh_Shelf01
+    2300080: msh_shelf01
+    2300082: msh_Shelf02
+    2300084: msh_table01
+    2300086: msh_table02
+    2300088: polySurface10
+    2300090: polySurface10 1
+    2300092: polySurface10 2
+    2300094: polySurface5
+    2300096: polySurface5 1
+    2300098: polySurface5 2
+    3300000: msh_backCousin01
+    3300002: msh_backCousin01 1
+    3300004: msh_backCousin01 2
+    3300006: msh_bottomCousin01
+    3300008: msh_bottomCousin01 1
+    3300010: msh_bottomCousin01 2
+    3300012: msh_ceilingLamp01
+    3300014: msh_ceilingLamp02
+    3300016: msh_chair01
+    3300018: msh_chair01 1
+    3300020: msh_chair01 2
+    3300022: msh_firePlace01
+    3300024: msh_fpChimny01
+    3300026: msh_fpCLock01
+    3300028: msh_fpFireGate
+    3300030: msh_fpMantilOrb01
+    3300032: msh_fpMantilOrbStnad01
+    3300034: msh_fpMantilPlate01
+    3300036: msh_fpMantilPlateStand01
+    3300038: msh_fpPictureFram01
+    3300040: msh_l_armRest01
+    3300042: msh_l_armRest01 1
+    3300044: msh_l_armRest01 2
+    3300046: msh_lb_leg01
+    3300048: msh_lb_leg01 1
+    3300050: msh_lb_leg01 2
+    3300052: msh_lf_leg01
+    3300054: msh_lf_leg01 1
+    3300056: msh_lf_leg01 2
+    3300058: msh_r_armRest01
+    3300060: msh_r_armRest01 1
+    3300062: msh_r_armRest01 2
+    3300064: msh_rb_leg01
+    3300066: msh_rb_leg01 1
+    3300068: msh_rb_leg01 2
+    3300070: msh_rf_leg01
+    3300072: msh_rf_leg01 1
+    3300074: msh_rf_leg01 2
+    3300076: msh_room01
+    3300078: msh_Shelf01
+    3300080: msh_shelf01
+    3300082: msh_Shelf02
+    3300084: msh_table01
+    3300086: msh_table02
+    3300088: polySurface10
+    3300090: polySurface10 1
+    3300092: polySurface10 2
+    3300094: polySurface5
+    3300096: polySurface5 1
+    3300098: polySurface5 2
+    4300000: msh_room01
+    4300002: msh_ceilingLamp01
+    4300004: msh_ceilingLamp02
+    4300006: msh_r_armRest01
+    4300008: msh_l_armRest01
+    4300010: polySurface5
+    4300012: polySurface10
+    4300014: msh_bottomCousin01
+    4300016: msh_backCousin01
+    4300018: msh_chair01
+    4300020: msh_rf_leg01
+    4300022: msh_rb_leg01
+    4300024: msh_lf_leg01
+    4300026: msh_lb_leg01
+    4300028: msh_r_armRest01
+    4300030: msh_l_armRest01
+    4300032: polySurface5
+    4300034: polySurface10
+    4300036: msh_bottomCousin01
+    4300038: msh_backCousin01
+    4300040: msh_chair01
+    4300042: msh_rf_leg01
+    4300044: msh_rb_leg01
+    4300046: msh_lf_leg01
+    4300048: msh_lb_leg01
+    4300050: msh_table01
+    4300052: msh_fpMantilPlate01
+    4300054: msh_firePlace01
+    4300056: msh_fpChimny01
+    4300058: msh_fpCLock01
+    4300060: msh_fpFireGate
+    4300062: msh_fpPictureFram01
+    4300064: msh_fpMantilPlateStand01
+    4300066: msh_fpMantilOrb01
+    4300068: msh_fpMantilOrbStnad01
+    4300070: msh_r_armRest01
+    4300072: msh_l_armRest01
+    4300074: polySurface5
+    4300076: polySurface10
+    4300078: msh_bottomCousin01
+    4300080: msh_backCousin01
+    4300082: msh_chair01
+    4300084: msh_rf_leg01
+    4300086: msh_rb_leg01
+    4300088: msh_lf_leg01
+    4300090: msh_lb_leg01
+    4300092: msh_Shelf01
+    4300094: msh_table02
+    4300096: msh_Shelf02
+    4300098: msh_shelf01
+    9500000: //RootNode
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    optimizeGameObjects: 0
+    motionNodeName: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: .5
+    animationPositionError: .5
+    animationScaleError: .5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    splitTangentsAcrossUV: 1
+    normalImportMode: 0
+    tangentImportMode: 1
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    human: []
+    skeleton: []
+    armTwist: .5
+    foreArmTwist: .5
+    upperLegTwist: .5
+    legTwist: .5
+    armStretch: .0500000007
+    legStretch: .0500000007
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
