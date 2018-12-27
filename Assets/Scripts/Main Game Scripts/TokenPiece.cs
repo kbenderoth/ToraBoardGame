@@ -207,7 +207,7 @@ public class TokenPiece : MonoBehaviour
         // Soldier - Move, Switch Stance, Cancel
         // Cannon - Ready/Load, Move, Attack, Cancel
         #region Move
-        var moveButton = _menuContainer.transform.FindChild("FirstOption").GetComponent<Button>();
+        var moveButton = _menuContainer.transform.Find("FirstOption").GetComponent<Button>();
         // Change text to "MOVE"
         moveButton.gameObject.GetComponentInChildren<Text>().text = "MOVE";
         // Disable this button if there aren't enough moves
@@ -218,7 +218,7 @@ public class TokenPiece : MonoBehaviour
         #endregion
 
         #region Attack
-        var attackButton = _menuContainer.transform.FindChild("SecondOption").GetComponent<Button>();
+        var attackButton = _menuContainer.transform.Find("SecondOption").GetComponent<Button>();
         // Change text to "ATTACK"
         attackButton.gameObject.GetComponentInChildren<Text>().text = "ATTACK";
         // Disable this button if there aren't enough attacks
@@ -229,14 +229,14 @@ public class TokenPiece : MonoBehaviour
         #endregion
 
         #region Cancel
-        var cancelButton = _menuContainer.transform.FindChild("ThirdOption").GetComponent<Button>();
+        var cancelButton = _menuContainer.transform.Find("ThirdOption").GetComponent<Button>();
         // Change text to "CANCEL"
         cancelButton.gameObject.GetComponentInChildren<Text>().text = "CANCEL";
         cancelButton.onClick.AddListener(() => OnCancelActionSelected());
         #endregion
 
         // Remove the Fourth Option
-        _menuContainer.transform.FindChild("FourthOption").GetComponent<Button>().gameObject.SetActive(false);
+        _menuContainer.transform.Find("FourthOption").GetComponent<Button>().gameObject.SetActive(false);
     }
 
     public void DestroySubMenu()

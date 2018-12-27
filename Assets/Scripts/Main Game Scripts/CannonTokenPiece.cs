@@ -71,7 +71,7 @@ public class CannonTokenPiece : TokenPiece
 
         // Cannon - Ready, Move, Attack, Cancel
         #region Ready Button
-        var readyButton = _menuContainer.transform.FindChild("FirstOption").GetComponent<Button>();
+        var readyButton = _menuContainer.transform.Find("FirstOption").GetComponent<Button>();
         // Change text to "READY"
         readyButton.gameObject.GetComponentInChildren<Text>().text = "READY";
         
@@ -83,7 +83,7 @@ public class CannonTokenPiece : TokenPiece
         #endregion
 
         #region Move
-        var moveButton = _menuContainer.transform.FindChild("SecondOption").GetComponent<Button>();
+        var moveButton = _menuContainer.transform.Find("SecondOption").GetComponent<Button>();
         // Change text to "MOVE"
         moveButton.gameObject.GetComponentInChildren<Text>().text = "MOVE";
         
@@ -95,7 +95,7 @@ public class CannonTokenPiece : TokenPiece
         #endregion
 
         #region Attack
-        var attackButton = _menuContainer.transform.FindChild("ThirdOption").GetComponent<Button>();
+        var attackButton = _menuContainer.transform.Find("ThirdOption").GetComponent<Button>();
         // Change text to "ATTACK"
         attackButton.gameObject.GetComponentInChildren<Text>().text = "ATTACK";
         // Disable this button if we aren't ready
@@ -106,7 +106,7 @@ public class CannonTokenPiece : TokenPiece
         #endregion
 
         #region Cancel
-        var cancelButton = _menuContainer.transform.FindChild("FourthOption").GetComponent<Button>();
+        var cancelButton = _menuContainer.transform.Find("FourthOption").GetComponent<Button>();
         // Change text to "CANCEL"
         cancelButton.gameObject.GetComponentInChildren<Text>().text = "CANCEL";
         cancelButton.onClick.AddListener(() => OnCancelActionSelected());

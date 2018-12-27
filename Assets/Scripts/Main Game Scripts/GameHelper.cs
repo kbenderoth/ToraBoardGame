@@ -163,15 +163,18 @@ public class GameHelper
             if (oppositionToken.TokenID == ID.ID_CANNON) continue;
             // Find the possible locations
             var validTiles = FindApproachableTiles(oppositionToken, oppositionTokens, challengerTokens, boardPieces, true); // NOTE: I think it should always be true to check THREAT
-            
-            foreach(var tile in validTiles)
+
+            foreach (var tile in validTiles)
             {
                 // Add to the threat level
-                boardPieces[tile].OppositionThreatLevel++;                
+                boardPieces[tile].OppositionThreatLevel++;
             }
             // Add to the game piece so we don't repeat this tile
-            oppositionToken.ThreateningPieces = validTiles;            
+            oppositionToken.ThreateningPieces = validTiles;
         }
+
+        // FOR NOW JUST MAKE SURE ONE WORKS
+
 
         foreach (var challengerToken in challengerTokens)
         {
@@ -184,8 +187,9 @@ public class GameHelper
                 boardPieces[tile].ChallengerThreatLevel++;
             }
             // Add to the game piece so we don't repeat this tile
-            challengerToken.ThreateningPieces = validTiles; 
+            challengerToken.ThreateningPieces = validTiles;
         }
+
     }
 
     public static List<int> FindApproachableTiles(TokenPiece currentToken, List<TokenPiece> friendlyTokens, List<TokenPiece> enemyTokens, BoardPiece[] boardPieces, bool isAttacking = false)

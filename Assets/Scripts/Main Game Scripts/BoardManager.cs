@@ -56,8 +56,8 @@ public class BoardManager : MonoBehaviour
 
         foreach (BoardPiece piece in Pieces)
         {
-            piece.Init();
             piece.TransparentMaterial = TransparentMaterial;
+            piece.Init();            
             piece.OnPieceSelected += OnBoardPieceSelected;
         }
 
