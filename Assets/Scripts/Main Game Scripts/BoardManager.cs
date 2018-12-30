@@ -56,8 +56,7 @@ public class BoardManager : MonoBehaviour
 
         foreach (BoardPiece piece in Pieces)
         {
-            piece.TransparentMaterial = TransparentMaterial;
-            piece.Init();            
+            piece.Init();
             piece.OnPieceSelected += OnBoardPieceSelected;
         }
 
@@ -75,8 +74,16 @@ public class BoardManager : MonoBehaviour
         // Set the current action text
         CurrentActionText.text = (Math.Min(3 - ActionsRemaining, 2)).ToString();
 
-        // Determine initial threat levels
-        GameHelper.DetermineThreatLevel(Opposition.Tokens, Challenger.Tokens, ref Pieces);
+        // If Jeopardy is active, initialize
+        var jeopardyManager = GameObject.Find("Jeopardy");
+        if (jeopardyManager.activeSelf)
+        {
+            jeopardyManager.GetComponent<JeopardyManager>().Init(Pieces);
+            jeopardyManager.GetComponent<JeopardyManager>().CalculateJeopardy(Opposition.Tokens, Challenger.Tokens);
+        }
+            
+
+        //GameHelper.DetermineThreatLevel(Opposition.Tokens, Challenger.Tokens, ref Pieces);
     }
     #endregion
 
@@ -101,19 +108,19 @@ public class BoardManager : MonoBehaviour
         int newBoardPosition = Array.FindIndex(Pieces, p => p.gameObject == piece);
 
         // Did we select an empty attacking piece?
-        if(_activePlayer.PlayerState == PLAYERSTATE.ATTACK && !Opposition.Tokens.Exists(p => p.BoardPosition == newBoardPosition) && !Challenger.Tokens.Exists(p => p.BoardPosition == newBoardPosition))
+        if (_activePlayer.PlayerState == PLAYERSTATE.ATTACK && !Opposition.Tokens.Exists(p => p.BoardPosition == newBoardPosition) && !Challenger.Tokens.Exists(p => p.BoardPosition == newBoardPosition))
             return;
 
         // remove the board highlights
         GameHelper.RemoveHighlights(_activePlayer.ActiveToken);
 
-        
+
         // Move to the new location if we are moving
         if (_activePlayer.PlayerState == PLAYERSTATE.MOVE)
             MoveActiveToken(newBoardPosition);
 
         // Attack if we landed on an enemy or chose to attack (Cannon cannot land on an enemy)
-        if((_activePlayer.PlayerState == PLAYERSTATE.MOVE && _activePlayer.ActiveToken.TokenID != ID.ID_CANNON) || _activePlayer.PlayerState == PLAYERSTATE.ATTACK)
+        if ((_activePlayer.PlayerState == PLAYERSTATE.MOVE && _activePlayer.ActiveToken.TokenID != ID.ID_CANNON) || _activePlayer.PlayerState == PLAYERSTATE.ATTACK)
             AttackWithActiveToken(newBoardPosition);
 
         // Did we already have an initial action?
@@ -180,11 +187,11 @@ public class BoardManager : MonoBehaviour
         // Call the active player first to restore the removed tokens
         _activePlayer.ResetTurn();
 
-        if (_activePlayer == Opposition) Challenger.ResetTurn(); else Opposition.ResetTurn(); 
+        if (_activePlayer == Opposition) Challenger.ResetTurn(); else Opposition.ResetTurn();
 
         // Give back the actions
         ActionsRemaining = 2;
-        
+
         // Set the current action text
         CurrentActionText.text = (Math.Min(3 - ActionsRemaining, 2)).ToString();
     }
@@ -260,7 +267,7 @@ public class BoardManager : MonoBehaviour
         CurrentPlayerText.CrossFadeColor(Color.red, 0f, true, false);
 
         // Set the current action text
-        CurrentActionText.text = (Math.Min(3 - ActionsRemaining,2)).ToString();
+        CurrentActionText.text = (Math.Min(3 - ActionsRemaining, 2)).ToString();
 
     }
 
@@ -298,7 +305,7 @@ public class BoardManager : MonoBehaviour
         int distance = GameHelper.CalculateAbsoluteDistance(newCol, newRow, col, row);
 
         // unless we're the cannon, reduce the distance to attack)
-        if(_activePlayer.ActiveToken.TokenID != ID.ID_CANNON)
+        if (_activePlayer.ActiveToken.TokenID != ID.ID_CANNON)
             _activePlayer.ActiveToken.Attack -= distance;
         _activePlayer.ActiveToken.Movement -= distance;
         _activePlayer.ActiveToken.BoardPosition = newBoardPosition;
@@ -318,7 +325,7 @@ public class BoardManager : MonoBehaviour
         if (enemyAtNewPosition != null)
         {
             // If the active piece is a cannon, use up the friendlies' actions
-            ClearFriendlyActions();            
+            ClearFriendlyActions();
 
             // check if there's a pesky soldier in defense in the way!
             if (DefendingSoldierBlocking(enemyAtNewPosition, enemy))
@@ -372,7 +379,7 @@ public class BoardManager : MonoBehaviour
                 friendly.CanOpenMenu = false;
                 if (friendly.TokenID == ID.ID_SOLDIER)
                     (friendly as SoldierTokenPiece).CanSwitchStance = false;
-                
+
             }
             cannonPiece.FriendliesUsed.Clear();
 

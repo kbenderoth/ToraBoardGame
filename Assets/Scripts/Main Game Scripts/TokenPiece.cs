@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System;
 using UnityEngine.UI;
@@ -58,8 +57,6 @@ public class TokenPiece : MonoBehaviour
     [HideInInspector]
     public int StartTurnPosition;           // This is a board position
 
-    public List<int> ThreateningPieces;
-
     public OnSelectedTokenPiece OnTokenSelected;
     public OnSelectedTokenPiece OnTokenAttacked;
     public OnSelectedTokenPiece OnAbilityTriggered;
@@ -77,7 +74,6 @@ public class TokenPiece : MonoBehaviour
 
     protected virtual void InitializeToken()
     {
-        ThreateningPieces = new List<int>();
         ClickerHandler = GetComponent<ClickHandler>();
         ClickerHandler.OnPressed += OnSelected;
         ClickerHandler.OnRPressed += OnAttackActionSelected;
@@ -288,7 +284,6 @@ public class TokenPiece : MonoBehaviour
         if (OnTokenAttacked != null)
             OnTokenAttacked(this);
     }
-
 
     void OnTriggered(GameObject sender)
     {

@@ -154,43 +154,37 @@ public class GameHelper
         //}
     }
 
-    public static void DetermineThreatLevel(List<TokenPiece> oppositionTokens, List<TokenPiece> challengerTokens, ref BoardPiece[] boardPieces)
-    {
-        // Go through EACH piece
-        foreach (var oppositionToken in oppositionTokens)
-        {
-            // Ignore the cannon for now, that one is special with its threat
-            if (oppositionToken.TokenID == ID.ID_CANNON) continue;
-            // Find the possible locations
-            var validTiles = FindApproachableTiles(oppositionToken, oppositionTokens, challengerTokens, boardPieces, true); // NOTE: I think it should always be true to check THREAT
+    //public static void DetermineThreatLevel(List<TokenPiece> oppositionTokens, List<TokenPiece> challengerTokens, ref BoardPiece[] boardPieces)
+    //{
+    //    // Go through EACH piece
+    //    foreach (var oppositionToken in oppositionTokens)
+    //    {
+    //        // Ignore the cannon for now, that one is special with its threat
+    //        if (oppositionToken.TokenID == ID.ID_CANNON) continue;
+    //        // Find the possible locations
+    //        var validTiles = FindApproachableTiles(oppositionToken, oppositionTokens, challengerTokens, boardPieces, true); // NOTE: I think it should always be true to check THREAT
 
-            foreach (var tile in validTiles)
-            {
-                // Add to the threat level
-                boardPieces[tile].OppositionThreatLevel++;
-            }
-            // Add to the game piece so we don't repeat this tile
-            oppositionToken.ThreateningPieces = validTiles;
-        }
+    //        foreach (var tile in validTiles)
+    //        {
+    //            // Add to the threat level
+    //            boardPieces[tile].OppositionThreatLevel++;
+    //        }
+    //    }
+  
 
-        // FOR NOW JUST MAKE SURE ONE WORKS
+    //    foreach (var challengerToken in challengerTokens)
+    //    {
+    //        // Find the possible locations
+    //        var validTiles = FindApproachableTiles(challengerToken, challengerTokens, oppositionTokens, boardPieces, true); // NOTE: I think it should always be true to check THREAT
 
+    //        foreach (var tile in validTiles)
+    //        {
+    //            // Add to the threat level
+    //            boardPieces[tile].ChallengerThreatLevel++;
+    //        }
+    //    }
 
-        foreach (var challengerToken in challengerTokens)
-        {
-            // Find the possible locations
-            var validTiles = FindApproachableTiles(challengerToken, challengerTokens, oppositionTokens, boardPieces, true); // NOTE: I think it should always be true to check THREAT
-
-            foreach (var tile in validTiles)
-            {
-                // Add to the threat level
-                boardPieces[tile].ChallengerThreatLevel++;
-            }
-            // Add to the game piece so we don't repeat this tile
-            challengerToken.ThreateningPieces = validTiles;
-        }
-
-    }
+    //}
 
     public static List<int> FindApproachableTiles(TokenPiece currentToken, List<TokenPiece> friendlyTokens, List<TokenPiece> enemyTokens, BoardPiece[] boardPieces, bool isAttacking = false)
     {
