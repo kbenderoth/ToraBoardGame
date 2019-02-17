@@ -76,12 +76,12 @@ public class BoardManager : MonoBehaviour
 
         // If Jeopardy is active, initialize
         var jeopardyManager = GameObject.Find("Jeopardy");
-        if (jeopardyManager.activeSelf)
+        if (jeopardyManager != null && jeopardyManager.activeSelf)
         {
             jeopardyManager.GetComponent<JeopardyManager>().Init(Pieces);
             jeopardyManager.GetComponent<JeopardyManager>().CalculateJeopardy(Opposition.Tokens, Challenger.Tokens);
         }
-            
+
 
         //GameHelper.DetermineThreatLevel(Opposition.Tokens, Challenger.Tokens, ref Pieces);
     }
@@ -132,6 +132,7 @@ public class BoardManager : MonoBehaviour
             ActionsRemaining--;
         }
         // remove the next action if we are out of moves
+        // TODO: general can move then attack, so doesn't mean turn has ended
         if (Math.Max(_activePlayer.ActiveToken.Attack, _activePlayer.ActiveToken.Movement) <= 0)
             EndAction();
         else
@@ -142,7 +143,17 @@ public class BoardManager : MonoBehaviour
                 // Since this token used a move, add it as the first token action
                 _activePlayer.InitialActionToken = _activePlayer.ActiveToken;
             }
-            GameHelper.DetermineSelectableTiles(_activePlayer.ActiveToken, _activePlayer.Tokens, (_activePlayer == Challenger) ? Opposition.Tokens : Challenger.Tokens, ref Pieces);
+
+            // Update the selectable tiles
+            if (_activePlayer.PlayerState == PLAYERSTATE.MOVE)
+            {
+                var moveablePositions = _activePlayer.ActiveToken.FindMoveableTiles(Pieces);
+                foreach (var moveIndex in moveablePositions)
+                {
+                    Pieces[moveIndex].ToggleSelectable(true, false);
+                    _activePlayer.ActiveToken.PossibleMoves.Add(Pieces[moveIndex]);
+                }
+            }
         }
     }
 
@@ -305,10 +316,14 @@ public class BoardManager : MonoBehaviour
         int distance = GameHelper.CalculateAbsoluteDistance(newCol, newRow, col, row);
 
         // unless we're the cannon, reduce the distance to attack)
-        if (_activePlayer.ActiveToken.TokenID != ID.ID_CANNON)
+        // ALSO, general can still attack
+        if (_activePlayer.ActiveToken.TokenID != ID.ID_CANNON && _activePlayer.ActiveToken.TokenID != ID.ID_GENERAL) // may want to move this
             _activePlayer.ActiveToken.Attack -= distance;
         _activePlayer.ActiveToken.Movement -= distance;
+        // replace the position
+        Pieces[_activePlayer.ActiveToken.BoardPosition].Piece = null;
         _activePlayer.ActiveToken.BoardPosition = newBoardPosition;
+        Pieces[newBoardPosition].Piece = _activePlayer.ActiveToken;
         Vector3 positionedPiece = Pieces[_activePlayer.ActiveToken.BoardPosition].transform.position;
 
         // If the active piece is a cannon, use up the friendlies' actions

@@ -6,16 +6,18 @@ using UnityEngine.UI;
 public enum ID { ID_ARCHER, ID_SOLDIER, ID_CANNON, ID_GENERAL };
 public delegate void OnSelectedTokenPiece(TokenPiece Token);
 
-public class TokenPiece : MonoBehaviour
+public abstract class TokenPiece : MonoBehaviour
 {
     [HideInInspector]
     public int BoardPosition;
-    public ID TokenID;
+    [HideInInspector]
+    public abstract ID TokenID { get; }
 
     protected Texture _DefaultImage;
 
-    protected int _maxAttack;
-    protected int _maxMovement;
+    protected abstract int MaxMoves { get; }    // For Jeopardy's threat system
+    protected abstract int MaxAttack { get; }
+    protected abstract int MaxMovement { get; }
 
     [HideInInspector]
     public bool IsCannonFriend;
@@ -23,7 +25,7 @@ public class TokenPiece : MonoBehaviour
     [HideInInspector]
     public bool CanOpenMenu;
 
-    private int _attack;
+    protected int _attack;
     [HideInInspector]
     public int Attack
     {
@@ -31,13 +33,15 @@ public class TokenPiece : MonoBehaviour
         set { _attack = value; } // hopefully won't need this!!!!!
     }
 
-    private int _movement; // player must move before attacking, player cannot attack before moving
+    protected int _movement; // player must move before attacking, player cannot attack before moving
     [HideInInspector]
     public int Movement
     {
         get { return _movement; }
         set { _movement = value; } // hopefully won't need this!!!!!
     }
+
+    public virtual bool IsSelectable { get { return _attack != 0 || _movement != 0; } }
 
 
     private List<BoardPiece> _possibleMoves = new List<BoardPiece>();
@@ -67,6 +71,9 @@ public class TokenPiece : MonoBehaviour
 
     protected ClickHandler ClickerHandler;
 
+    // Who owns this piece
+    public PlayerBehavior PlayerOwner { get; set; }
+
     void Start()
     {
         InitializeToken();
@@ -81,29 +88,8 @@ public class TokenPiece : MonoBehaviour
 
         StartGamePosition = new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-
-        switch (TokenID)
-        {
-            case ID.ID_ARCHER:
-                _maxMovement = _maxAttack = 2;
-                break;
-            case ID.ID_CANNON:
-                // movement and attacking is only applicable if 2 friendly pieces are adjacent to it
-                _maxMovement = 1;
-                _maxAttack = 9;
-                break;
-            case ID.ID_GENERAL:
-                _maxMovement = 2;
-                _maxAttack = 1;
-                break;
-            case ID.ID_SOLDIER:
-                // Soldier can only attack through movement
-                _maxMovement = 1;
-                _maxAttack = 0;
-                break;
-        }
-        _attack = _maxAttack;
-        _movement = _maxMovement;
+        _attack = MaxAttack;
+        _movement = MaxMovement;
 
         _DefaultImage = GetComponent<Renderer>().material.mainTexture;
         IsCannonFriend = false;
@@ -113,8 +99,8 @@ public class TokenPiece : MonoBehaviour
 
     public void Reset()
     {
-        _attack = _maxAttack;
-        _movement = _maxMovement;
+        _attack = MaxAttack;
+        _movement = MaxMovement;
         IsCannonFriend = false;
         CanOpenMenu = true;
     }
@@ -123,8 +109,9 @@ public class TokenPiece : MonoBehaviour
     /// Completes the current move by this token [attack, movement or ability]
     /// </summary>
     /// <returns>True if this token can no longer move or attack. False otherwise.</returns>
-    public bool CompleteMove()
+    public virtual bool CompleteMove()
     {
+        // NOTE: this is never called
         --_attack;
         --_movement;
         if (_attack == 0 && _movement == 0)
@@ -141,7 +128,7 @@ public class TokenPiece : MonoBehaviour
     /// </returns>
     public virtual bool HasMoved()
     {
-        return _movement != _maxMovement && _attack != _maxAttack;
+        return _movement != MaxMovement && _attack != MaxAttack;
     }
 
     public virtual void EndAction()
@@ -156,8 +143,8 @@ public class TokenPiece : MonoBehaviour
 
     public void RestartToPosition()
     {
-        _attack = _maxAttack;
-        _movement = _maxMovement;
+        _attack = MaxAttack;
+        _movement = MaxMovement;
         transform.position = new Vector3(StartGamePosition.x, StartGamePosition.y, StartGamePosition.z);
     }
 
@@ -272,6 +259,10 @@ public class TokenPiece : MonoBehaviour
         if (OnCancelSelected != null)
             OnCancelSelected();
     }
+
+    public abstract List<int> CalculateJeopardy(BoardPiece[] boardPieces);
+    public abstract List<int> FindMoveableTiles(BoardPiece[] boardPieces);
+    public abstract List<int> FindAttackableTiles(BoardPiece[] boardPieces);
 
     void OnSelected(GameObject sender)
     {

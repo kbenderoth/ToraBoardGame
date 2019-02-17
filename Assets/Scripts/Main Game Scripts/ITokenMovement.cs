@@ -2,15 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ITokenMovement : MonoBehaviour {
+public interface ITokenMovement
+{
+    #region Properties
+    // number of attacks
+    int NumAttacks { get; }
+    // number of moves
+    int NumMoves { get; }
+    // is ranged
+    bool IsRanged { get; }
+    #endregion Properties
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    #region Methods
+    // Find Moveable
+    List<int> FindMoveableTiles();
+    // Find Attackable
+    List<int> FindAttackableTiles();
+
+    #endregion Methods
 }

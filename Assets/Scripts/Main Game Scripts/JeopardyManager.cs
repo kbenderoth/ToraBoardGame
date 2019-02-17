@@ -106,9 +106,10 @@ public class JeopardyManager : MonoBehaviour
         foreach (var oppositionToken in oppositionTokens)
         {
             // Ignore the cannon for now, that one is special with its threat
-            if (oppositionToken.TokenID == ID.ID_CANNON) continue;
+           // if (oppositionToken.TokenID == ID.ID_CANNON) continue;
             // Find the possible locations
-            var validTiles = GameHelper.FindApproachableTiles(oppositionToken, oppositionTokens, challengerTokens, _boardPieces, true); // NOTE: I think it should always be true to check THREAT
+            var validTiles = oppositionToken.CalculateJeopardy(_boardPieces);
+            //var validTiles = GameHelper.FindApproachableTiles(oppositionToken, oppositionTokens, challengerTokens, _boardPieces, oppositionToken.TokenID != ID.ID_SOLDIER && oppositionToken.TokenID != ID.ID_GENERAL);
 
             foreach (var tile in validTiles)
             {
@@ -120,9 +121,10 @@ public class JeopardyManager : MonoBehaviour
         foreach (var challengerToken in challengerTokens)
         {
             // Ignore the cannon for now, that one is special with its threat
-            if (challengerToken.TokenID == ID.ID_CANNON) continue;
+            //if (challengerToken.TokenID == ID.ID_CANNON) continue;
             // Find the possible locations
-            var validTiles = GameHelper.FindApproachableTiles(challengerToken, challengerTokens, oppositionTokens, _boardPieces, true); // NOTE: I think it should always be true to check THREAT
+            var validTiles = challengerToken.CalculateJeopardy(_boardPieces);
+            //var validTiles = GameHelper.FindApproachableTiles(challengerToken, challengerTokens, oppositionTokens, _boardPieces, challengerToken.TokenID != ID.ID_SOLDIER && challengerToken.TokenID != ID.ID_GENERAL);
 
             foreach (var tile in validTiles)
             {
@@ -132,7 +134,13 @@ public class JeopardyManager : MonoBehaviour
         }
 
         // Set the board
-        for(var index = 0; index < _highlightPieces.Length; ++index)
+        SetBoardText();
+
+    }
+
+    private void SetBoardText()
+    {
+        for (var index = 0; index < _highlightPieces.Length; ++index)
         {
             var renderer = _highlightPieces[index].GetComponent<Renderer>();
             var threatSum = _threatLevels[index].TotalThreatLevel;
@@ -142,13 +150,13 @@ public class JeopardyManager : MonoBehaviour
             _challengerThreatText[index].enabled = _threatLevels[index].ChallengerThreatLevel > 0;
             _challengerThreatText[index].text = _threatLevels[index].ChallengerThreatLevel.ToString();
 
-            if (threatSum == 0)            
+            if (threatSum == 0)
                 renderer.material.color = _noThreatColor;
             else
             {
                 var oppositionThreatColor = _fullOppositionColor * _threatLevels[index].OppositionThreatRatio;
                 var challengerThreatColor = _fullChallengerColor * _threatLevels[index].ChallengerThreatLevel;
-                var threatColor = (oppositionThreatColor + challengerThreatColor)/2;
+                var threatColor = (oppositionThreatColor + challengerThreatColor) / 2;
 
                 var highestThreatLevel = Mathf.Max(_threatLevels[index].OppositionThreatLevel, _threatLevels[index].ChallengerThreatLevel);
 
@@ -156,13 +164,5 @@ public class JeopardyManager : MonoBehaviour
                 renderer.material.color = new Color(threatColor.r, threatColor.g, threatColor.b, highestThreatLevel / 6f);
             }
         }
-
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

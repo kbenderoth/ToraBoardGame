@@ -49,6 +49,7 @@ public class PlayerBehavior : MonoBehaviour
     {
         foreach (TokenPiece token in Tokens)
         {
+            token.PlayerOwner = this;
             token.OnTokenSelected += HandleTokenSelected;
             token.OnTokenAttacked += HandleTokenAttacked;
             token.OnMoveSelected = HandleMovementSelected;
@@ -166,7 +167,14 @@ public class PlayerBehavior : MonoBehaviour
         PlayerState = PLAYERSTATE.MOVE;
 
         // Determine all the possible moves
-        GameHelper.DetermineSelectableTiles(_activeToken, Tokens, _boardManager.Challenger == this ? _boardManager.Opposition.Tokens : _boardManager.Challenger.Tokens, ref _boardManager.Pieces);
+        var pieces = _boardManager.Pieces;
+        var possibleMoves = _activeToken.FindMoveableTiles(pieces);
+        _activeToken.PossibleMoves.Clear();
+        foreach (var moveIndex in possibleMoves)
+        {
+            pieces[moveIndex].ToggleSelectable(true, false);
+            _activeToken.PossibleMoves.Add(pieces[moveIndex]);
+        }
     }
     #endregion
 
@@ -181,14 +189,14 @@ public class PlayerBehavior : MonoBehaviour
         PlayerState = PLAYERSTATE.ATTACK;
 
         // Determine all the possible moves
-        if (_activeToken.TokenID == ID.ID_CANNON)
+        var pieces = _boardManager.Pieces;
+        var possibleMoves = _activeToken.FindAttackableTiles(pieces);
+        _activeToken.PossibleMoves.Clear();
+        foreach(var attackIndex in possibleMoves)
         {
-            GameHelper.DetermineCannonSelectableAttackTiles(_activeToken as CannonTokenPiece, Tokens,
-                (this == _boardManager.Opposition) ? _boardManager.Challenger.Tokens : _boardManager.Opposition.Tokens, ref _boardManager.Pieces);
-            return;
+            pieces[attackIndex].ToggleSelectable(true, true);
+            _activeToken.PossibleMoves.Add(pieces[attackIndex]);
         }
-        GameHelper.DetermineSelectableTiles(_activeToken, Tokens, _boardManager.Challenger == this ? _boardManager.Opposition.Tokens : _boardManager.Challenger.Tokens, ref _boardManager.Pieces, true);
-
     }
     #endregion
 
@@ -221,7 +229,7 @@ public class PlayerBehavior : MonoBehaviour
     /// <param name="token">The selected token.</param>
     public void HandleTokenSelected(TokenPiece token)
     {
-        if (_boardManager.ActivePlayer == this && ((token.TokenID == ID.ID_SOLDIER && (token as SoldierTokenPiece).CanSwitchStance) || token.Movement > 0 || token.TokenID == ID.ID_CANNON))
+        if (_boardManager.ActivePlayer == this && token.IsSelectable)
             HandleFriendlyTokenSelected(token);
         else
             HandleEnemyTokenSelected(token);
@@ -345,6 +353,7 @@ public class PlayerBehavior : MonoBehaviour
         // We are being attacked...
         // If this method is called, there is no mistaking that you are to be removed immediately!
 
+        _boardManager.Pieces[token.BoardPosition].Piece = null;
         token.BoardPosition = -1;   // this may be a problem if I don't check that BoardPosition is valid...
         token.gameObject.SetActive(false);
         _removedTokens.Add(token);

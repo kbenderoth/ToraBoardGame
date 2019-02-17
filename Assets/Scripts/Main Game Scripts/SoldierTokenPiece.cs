@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
-public class SoldierTokenPiece : TokenPiece {
+public class SoldierTokenPiece : TokenPiece
+{
 
     // The Soldier's stance; Attack by default
     [HideInInspector]
@@ -16,13 +18,32 @@ public class SoldierTokenPiece : TokenPiece {
     public bool CanSwitchStance;
 
     public Texture DefenseTexture; // The texture for the soldier to show when in defensive position (this may need to just be on the bottom of the token????)
-    
-	// Use this for initialization
-	void Start () 
+
+    public override ID TokenID { get { return ID.ID_SOLDIER; } }
+
+    protected override int MaxAttack
+    {
+        get { return 1; } // TODO: may need to be 0. need to see if they have to move when they attack?
+    }
+
+    protected override int MaxMovement { get { return 1; } }
+
+    protected override int MaxMoves { get { return MaxMovement; } }
+
+    public override bool IsSelectable
+    {
+        get
+        {
+            return _attack != 0 || _movement != 0 || CanSwitchStance;
+        }
+    }
+
+    // Use this for initialization
+    void Start()
     {
         InitializeToken();
-	}
-	
+    }
+
     protected override void InitializeToken()
     {
         base.InitializeToken();
@@ -79,7 +100,7 @@ public class SoldierTokenPiece : TokenPiece {
         #endregion
 
         // Remove the Fourth Option
-        _menuContainer.transform.Find("FourthOption").GetComponent<Button>().gameObject.SetActive(false);        
+        _menuContainer.transform.Find("FourthOption").GetComponent<Button>().gameObject.SetActive(false);
     }
 
     public override void ResetTokenToStartTurn()
@@ -95,6 +116,19 @@ public class SoldierTokenPiece : TokenPiece {
         StartTurnDefense = IsDefense;
     }
 
+    public override List<int> CalculateJeopardy(BoardPiece[] boardPieces)
+    {
+        var threatPositions = new List<int>();
+
+        // TODO: need to take into account of the fact that neighboring pieces may be moveable
+        // For now, just get what's within the vicinity
+        if (IsDefense) return threatPositions; // No threat when in defense
+
+        // Mimick the FindMoveableTiles for now
+        threatPositions = FindMoveableTiles(boardPieces);
+
+        return threatPositions;
+    }
 
     public void SwitchStance()
     {
@@ -103,24 +137,62 @@ public class SoldierTokenPiece : TokenPiece {
         // switch the soldier's stance
         // make sure to set the MAX ATTACK and MAX MOVEMENT to 0 in defense, and 1 in offense!
         IsDefense = !IsDefense;
-        if(IsDefense)
+        if (IsDefense)
         {
             // switch textures
             gameObject.GetComponent<Renderer>().material.mainTexture = DefenseTexture;
 
-            // set movement to 0
-            _maxMovement = 0;
-            Movement = _maxMovement;
+            //// set movement to 0
+            //MaxMovement = 0;
+            //Movement = MaxMovement;
         }
         else
         {
             // switch textures
             gameObject.GetComponent<Renderer>().material.mainTexture = _DefaultImage;
 
-            // set attack and movement to default (1 for movement)
-            _maxMovement = 1;
-            Movement = _maxMovement;
+            //// set attack and movement to default (1 for movement)
+            //MaxMovement = 1;
+            //Movement = MaxMovement;
         }
         DestroySubMenu();
+    }
+
+    public override List<int> FindMoveableTiles(BoardPiece[] boardPieces)
+    {
+        // If in defence, cannot move
+        var result = new List<int>();
+        if (!IsDefense)
+        {
+            var currentPieceIndex = boardPieces[BoardPosition];
+            Vector2Int gridPosition = GameHelper.BoardToGridPosition(BoardPosition);
+            int newCol, newRow;
+            for (var i = -Movement; i <= Movement; ++i)
+            {
+                newCol = gridPosition.x + i;
+                if (newCol < 0)
+                    continue;
+                for (int j = -Movement; j <= Movement; ++j)
+                {
+                    newRow = gridPosition.y + j;
+                    if (newRow >= 0)
+                    {
+                        var index = GameHelper.GridToBoardPosition(newCol, newRow);
+                        if (index >= boardPieces.Length) continue;
+                        if (boardPieces[index].Piece != null && boardPieces[index].Piece.PlayerOwner == PlayerOwner) continue;
+
+                        // Since movement is only 1, simply return the result
+                        result.Add(index);
+                    }
+                }
+            }
+        }        
+        return result;
+    }
+
+    public override List<int> FindAttackableTiles(BoardPiece[] boardPieces)
+    {
+        // Same thing as moving
+        return FindMoveableTiles(boardPieces);
     }
 }

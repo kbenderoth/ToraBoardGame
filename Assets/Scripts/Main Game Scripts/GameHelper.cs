@@ -11,8 +11,8 @@ public class GameHelper
     #region Fields
     public static readonly int SHORT_DIMENSIONS = 9;
 
-    public static readonly Dictionary<int, ID> OPPOSITION_ATTACK = new Dictionary<int, ID> 
-                                                                                            { 
+    public static readonly Dictionary<int, ID> OPPOSITION_ATTACK = new Dictionary<int, ID>
+                                                                                            {
                                                                                                 {26, ID.ID_ARCHER},
                                                                                                 {34,ID.ID_SOLDIER},
                                                                                                 {42, ID.ID_ARCHER},
@@ -21,7 +21,7 @@ public class GameHelper
                                                                                                 {52, ID.ID_SOLDIER},
                                                                                                 {62, ID.ID_ARCHER}
                                                                                             };
-    public static readonly Dictionary<int, ID> OPPOSITION_DEFENSE = new Dictionary<int, ID> 
+    public static readonly Dictionary<int, ID> OPPOSITION_DEFENSE = new Dictionary<int, ID>
                                                                                             {
                                                                                                 {33, ID.ID_ARCHER},
                                                                                                 {34, ID.ID_SOLDIER},
@@ -31,8 +31,8 @@ public class GameHelper
                                                                                                 {51, ID.ID_ARCHER},
                                                                                                 {52, ID.ID_SOLDIER}
                                                                                             };
-    public static readonly Dictionary<int, ID> CHALLENGER_ATTACK = new Dictionary<int, ID> 
-                                                                                            { 
+    public static readonly Dictionary<int, ID> CHALLENGER_ATTACK = new Dictionary<int, ID>
+                                                                                            {
                                                                                                 {18, ID.ID_ARCHER},
                                                                                                 {28, ID.ID_SOLDIER},
                                                                                                 {38, ID.ID_ARCHER},
@@ -41,8 +41,8 @@ public class GameHelper
                                                                                                 {46, ID.ID_SOLDIER},
                                                                                                 {54, ID.ID_ARCHER}
                                                                                             };
-    public static readonly Dictionary<int, ID> CHALLENGER_DEFENSE = new Dictionary<int, ID> 
-                                                                                            { 
+    public static readonly Dictionary<int, ID> CHALLENGER_DEFENSE = new Dictionary<int, ID>
+                                                                                            {
                                                                                                 {29, ID.ID_ARCHER},
                                                                                                 {28, ID.ID_SOLDIER},
                                                                                                 {38, ID.ID_ARCHER},
@@ -103,23 +103,27 @@ public class GameHelper
     public static void DetermineSelectableTiles(TokenPiece activeToken, List<TokenPiece> tokens, List<TokenPiece> enemyTokens, ref BoardPiece[] boardPieces, bool isAttacking = false)
     {
         // with the number of possible moves/attacks, find the valid possible moves
-        // TODO: once we see that jeopardy colors are working, prevent the pieces from going into jeopardy (wait...just the general?)
+        // TODO: once we see that jeopardy colors are working, prevent the pieces from going into jeopardy (just the general?)
         var validTiles = FindApproachableTiles(activeToken, tokens, enemyTokens, boardPieces, isAttacking);
         foreach (var tile in validTiles)
         {
             boardPieces[tile].ToggleSelectable(true, isAttacking);
             activeToken.PossibleMoves.Add(boardPieces[tile]);
         }
+    }
 
+    public static List<int> FindApproachableTiles(TokenPiece currentToken, List<TokenPiece> friendlyTokens, List<TokenPiece> enemyTokens, BoardPiece[] boardPieces, bool isAttacking = false)
+    {
+        // with the number of possible moves/attacks, find the valid possible moves
+        if (currentToken == null)
+            throw new NullReferenceException();
 
-        //if (activeToken == null)
-        //    throw new NullReferenceException();
-
-        //int currentPosition = activeToken.BoardPosition;
+        var result = new List<int>();
+        //int currentPosition = currentToken.BoardPosition;
         //int row = currentPosition / SHORT_DIMENSIONS;
         //int col = currentPosition % SHORT_DIMENSIONS;
         //int newRow, newCol;
-        //int maxMoves = isAttacking ? activeToken.Attack : activeToken.Movement;
+        //int maxMoves = isAttacking ? currentToken.Attack : currentToken.Movement;
 
         //for (int i = -maxMoves; i <= maxMoves; ++i)
         //{
@@ -132,146 +136,74 @@ public class GameHelper
         //        if (newRow >= 0 && newRow < SHORT_DIMENSIONS)
         //        {
         //            var index = newRow * SHORT_DIMENSIONS + newCol;
-        //            if (Array.Exists(tokens.ToArray(), p => p.BoardPosition == index))
+        //            if (Array.Exists(friendlyTokens.ToArray(), p => p.BoardPosition == index))
         //                continue;
 
         //            // TODO: there is an issue with finding a valid locations
         //            // Right now, if there's someone in the way, it won't matter
 
         //            // Make sure the path to this location is valid
-        //            if (TryAStarFunction(newCol, newRow, col, row, tokens, enemyTokens, maxMoves, true))
-        //            {
-        //                boardPieces[index].ToggleSelectable(true, isAttacking);
-        //                activeToken.PossibleMoves.Add(boardPieces[index]);
-        //            }
-        //            else
-        //            {
-        //                // Do NOT proceed forward
-        //               // break;
-        //            }
+        //            if (TryAStarFunction(newCol, newRow, col, row, friendlyTokens, enemyTokens, maxMoves, true))
+        //                result.Add(index);
         //        }
         //    }
         //}
-    }
-
-    //public static void DetermineThreatLevel(List<TokenPiece> oppositionTokens, List<TokenPiece> challengerTokens, ref BoardPiece[] boardPieces)
-    //{
-    //    // Go through EACH piece
-    //    foreach (var oppositionToken in oppositionTokens)
-    //    {
-    //        // Ignore the cannon for now, that one is special with its threat
-    //        if (oppositionToken.TokenID == ID.ID_CANNON) continue;
-    //        // Find the possible locations
-    //        var validTiles = FindApproachableTiles(oppositionToken, oppositionTokens, challengerTokens, boardPieces, true); // NOTE: I think it should always be true to check THREAT
-
-    //        foreach (var tile in validTiles)
-    //        {
-    //            // Add to the threat level
-    //            boardPieces[tile].OppositionThreatLevel++;
-    //        }
-    //    }
-  
-
-    //    foreach (var challengerToken in challengerTokens)
-    //    {
-    //        // Find the possible locations
-    //        var validTiles = FindApproachableTiles(challengerToken, challengerTokens, oppositionTokens, boardPieces, true); // NOTE: I think it should always be true to check THREAT
-
-    //        foreach (var tile in validTiles)
-    //        {
-    //            // Add to the threat level
-    //            boardPieces[tile].ChallengerThreatLevel++;
-    //        }
-    //    }
-
-    //}
-
-    public static List<int> FindApproachableTiles(TokenPiece currentToken, List<TokenPiece> friendlyTokens, List<TokenPiece> enemyTokens, BoardPiece[] boardPieces, bool isAttacking = false)
-    {
-        // with the number of possible moves/attacks, find the valid possible moves
-        if (currentToken == null)
-            throw new NullReferenceException();
-
-        var result = new List<int>();
-        int currentPosition = currentToken.BoardPosition;
-        int row = currentPosition / SHORT_DIMENSIONS;
-        int col = currentPosition % SHORT_DIMENSIONS;
-        int newRow, newCol;
-        int maxMoves = isAttacking ? currentToken.Attack : currentToken.Movement;
-
-        for (int i = -maxMoves; i <= maxMoves; ++i)
-        {
-            newCol = col + i;
-            if (newCol < 0 || newCol >= SHORT_DIMENSIONS)
-                continue;
-            for (int j = -maxMoves; j <= maxMoves; ++j)
-            {
-                newRow = row + j;
-                if (newRow >= 0 && newRow < SHORT_DIMENSIONS)
-                {
-                    var index = newRow * SHORT_DIMENSIONS + newCol;
-                    if (Array.Exists(friendlyTokens.ToArray(), p => p.BoardPosition == index))
-                        continue;
-
-                    // TODO: there is an issue with finding a valid locations
-                    // Right now, if there's someone in the way, it won't matter
-
-                    // Make sure the path to this location is valid
-                    if (TryAStarFunction(newCol, newRow, col, row, friendlyTokens, enemyTokens, maxMoves, true))
-                        result.Add(index);                    
-                }
-            }
-        }
         return result;
     }
 
-    public static bool TryAStarFunction(int xPos, int yPos, int xDestination, int yDestination, List<TokenPiece> friendlyTokens, List<TokenPiece> enemyTokens,
-                                        int movesRemaining, bool isInitialCheck = false)
+    public static bool TryAStarFunction(int xPos, int yPos, int xDestination, int yDestination, TokenPiece currentToken, BoardPiece[] boardPieces,
+                                        int movesRemaining, bool isInitialCheck)
     {
         var currentPos = GridToBoardPosition(xPos, yPos);
         var destinationPos = GridToBoardPosition(xDestination, yDestination);
 
         // if currentPos is invalid, bail
-        if (destinationPos < 0 || destinationPos >= SHORT_DIMENSIONS * SHORT_DIMENSIONS)
-            return false;
+        if (currentPos < 0 || currentPos >= SHORT_DIMENSIONS * SHORT_DIMENSIONS) return false;
 
         // If the distance is greater than our remaining moves, bail
-        if (xDestination - xPos > movesRemaining || yDestination - yPos > movesRemaining)
-            return false;
+        if (xDestination - xPos > movesRemaining || yDestination - yPos > movesRemaining) return false;
 
         // If we're at the source, we did it!
-        if (currentPos == destinationPos)
-            return true;
+        if (currentPos == destinationPos) return true;
 
         // If there's a token here at all or we're out of moves, this path isn't valid (exception if we just started and an enemy is there)
-        if (Array.Exists(friendlyTokens.ToArray(), p => p.BoardPosition == currentPos) ||
-            (Array.Exists(enemyTokens.ToArray(), p => p.BoardPosition == currentPos) && !isInitialCheck) || movesRemaining < 0)
-            return false;
+        if (movesRemaining < 0) return false;
 
-        // Looks like this tile is empty. Keep moving through all the paths
-        //var xDir = (xDestination - xPos == 0) ? 0 : (int)((xDestination - xPos) / (xDestination - xPos));
-        //var yDir = (yDestination - yPos == 0) ? 0 : (int)((yDestination - yPos) / (yDestination - yPos));
+        // no moving over friendlies allowed
+        if (boardPieces[currentPos].Piece != null)
+        {
+            // no moving over friendlies allowed
+            if (boardPieces[currentPos].Piece.PlayerOwner == currentToken.PlayerOwner) return false;
+            // unless this is the start of the path, we do not want another enemy in the way
+            else if (!isInitialCheck) return false;
+        }
+        //friendlyTokens.Find(p => p.BoardPosition == currentPos) != null) return false;
+        // unless this is the start of the path, we do not want another enemy in the way
+        //if (enemyTokens.Find(p => p.BoardPosition == currentPos) != null && !isInitialCheck) return false;
+
+        // Looks like this tile is valid. Keep moving through all the paths
+
         // Move along X (if applicable)
-        if (TryAStarFunction(xPos+1 , yPos, xDestination, yDestination, friendlyTokens, enemyTokens, movesRemaining - 1))
+        if (TryAStarFunction(xPos + 1, yPos, xDestination, yDestination, currentToken, boardPieces, movesRemaining - 1, false))
             return true;
-        if (TryAStarFunction(xPos - 1, yPos, xDestination, yDestination, friendlyTokens, enemyTokens, movesRemaining - 1))
+        if (TryAStarFunction(xPos - 1, yPos, xDestination, yDestination, currentToken, boardPieces, movesRemaining - 1, false))
             return true;
         // Move along Y (if applicable)
-        if (TryAStarFunction(xPos, yPos + 1, xDestination, yDestination, friendlyTokens, enemyTokens, movesRemaining - 1))
+        if (TryAStarFunction(xPos, yPos + 1, xDestination, yDestination, currentToken, boardPieces, movesRemaining - 1, false))
             return true;
         // Move diagonaly in all directions
-        if (TryAStarFunction(xPos, yPos - 1, xDestination, yDestination, friendlyTokens, enemyTokens, movesRemaining - 1))
+        if (TryAStarFunction(xPos, yPos - 1, xDestination, yDestination, currentToken, boardPieces, movesRemaining - 1, false))
             return true;
-        if (TryAStarFunction(xPos + 1, yPos + 1, xDestination, yDestination, friendlyTokens, enemyTokens, movesRemaining - 1))
+        if (TryAStarFunction(xPos + 1, yPos + 1, xDestination, yDestination, currentToken, boardPieces, movesRemaining - 1, false))
             return true;
-        if (TryAStarFunction(xPos - 1, yPos - 1, xDestination, yDestination, friendlyTokens, enemyTokens, movesRemaining - 1))
+        if (TryAStarFunction(xPos - 1, yPos - 1, xDestination, yDestination, currentToken, boardPieces, movesRemaining - 1, false))
             return true;
-        if (TryAStarFunction(xPos + 1, yPos - 1, xDestination, yDestination, friendlyTokens, enemyTokens, movesRemaining - 1))
+        if (TryAStarFunction(xPos + 1, yPos - 1, xDestination, yDestination, currentToken, boardPieces, movesRemaining - 1, false))
             return true;
-        if (TryAStarFunction(xPos - 1, yPos + 1, xDestination, yDestination, friendlyTokens, enemyTokens, movesRemaining - 1))
+        if (TryAStarFunction(xPos - 1, yPos + 1, xDestination, yDestination, currentToken, boardPieces, movesRemaining - 1, false))
             return true;
 
-        // We exhausted the search, abort (it shouldn't hit this)
+        // We exhausted the search, abort (it should never this)
         return false;
     }
 
@@ -370,10 +302,12 @@ public class GameHelper
                     break;
                 case ID.ID_CANNON:
                     cannon.BoardPosition = pair.Key;
+                    boardPieces[cannon.BoardPosition].Piece = cannon;
                     SetTokenPositionToBoardPosition(cannon, ref boardPieces);
                     break;
                 case ID.ID_GENERAL:
                     general.BoardPosition = pair.Key;
+                    boardPieces[general.BoardPosition].Piece = general;
                     SetTokenPositionToBoardPosition(general, ref boardPieces);
                     break;
                 case ID.ID_SOLDIER:
@@ -384,11 +318,13 @@ public class GameHelper
         for (var i = 0; i < archerPositions.Count; ++i)
         {
             archers[i].BoardPosition = archerPositions[i];
+            boardPieces[archers[i].BoardPosition].Piece = archers[i];
             SetTokenPositionToBoardPosition(archers[i], ref boardPieces);
         }
         for (var i = 0; i < soldierPositions.Count; ++i)
         {
             soldiers[i].BoardPosition = soldierPositions[i];
+            boardPieces[soldiers[i].BoardPosition].Piece = soldiers[i];
             SetTokenPositionToBoardPosition(soldiers[i], ref boardPieces);
         }
     }
@@ -433,7 +369,7 @@ public class GameHelper
     /// <summary>
     /// Determines if defending soldier is blocking the specified defendingToken.
     /// </summary>
-    /// <returns><c>TokenPiece</c> if defending soldier is blocking the specifieddefendingToken; otherwise, <c>null</c>.</returns>
+    /// <returns><c>TokenPiece</c> if defending soldier is blocking the specified defendingToken; otherwise, <c>null</c>.</returns>
     /// <param name="attackingToken">Attacking token.</param>
     /// <param name="defendingToken">Defending token.</param>
     /// <param name="enemyPieces">Enemy pieces.</param>
@@ -476,8 +412,35 @@ public class GameHelper
     /// </summary>
     /// <param name="position">Position in board space</param>
     /// <returns><X>Column</X><Y>Row</Y></returns>
-    public static Vector2 BoardToGridPosition(int position)
+    public static Vector2Int BoardToGridPosition(int position)
     {
-        return new Vector2(position % SHORT_DIMENSIONS, position / SHORT_DIMENSIONS);
+        return new Vector2Int(position % SHORT_DIMENSIONS, position / SHORT_DIMENSIONS);
+    }
+
+    private List<int> FindAttackableTiles(TokenPiece currentToken, List<TokenPiece> friendlyTokens, BoardPiece[] boardPieces)
+    {
+        var currentPosition = currentToken.BoardPosition;
+        int row = currentPosition / SHORT_DIMENSIONS;
+        int col = currentPosition % SHORT_DIMENSIONS;
+        var result = new List<int>();
+        int newRow, newCol;
+        for (var i = -currentToken.Attack; i <= currentToken.Attack; ++i)
+        {
+            newCol = col + i;
+            if (newCol < 0 || newCol >= SHORT_DIMENSIONS)
+                continue;
+            for (var j = -currentToken.Attack; i <= currentToken.Attack; ++i)
+            {
+                newRow = row + j;
+                if (newRow >= 0 && newRow < SHORT_DIMENSIONS)
+                {
+                    var index = newRow * SHORT_DIMENSIONS + newCol;
+
+                }
+
+            }
+        }
+
+        return result;
     }
 }
